@@ -1,7 +1,22 @@
 #include <iostream>
 using namespace std;
 
-// TODO: Finish encryption algorithms for Caesar(), Vigenere(), and LoganCypher(). Rename LoganCypher(). Add template function(s), add ErrorHandler() function.
+/*
+TODO: 
+- Finish encryption algorithms for Caesar(), Vigenere(), and LoganCypher(). Rename LoganCypher(). 
+- Make Encrypt class a subclass of parent class Text.
+- Add ErrorHandler() function.
+
+CHECKLIST: 
+- Inheritance []
+- Polymorphism []
+- Encapsulation [x] 
+- Abstraction []
+- Composition []
+- Overloading []
+- Virtual Functions []
+- Template Functions []
+*/
 
 
 class Encrypt {
