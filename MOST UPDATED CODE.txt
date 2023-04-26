@@ -51,6 +51,7 @@ class Encrypt {
     
     void vigenereAlgorithm() {
         cout << "Enter a word for the key:\n"; cin >> vigenereKey;
+        transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
         //Encryption
         if (!translate){
             // Make sure key is at least as long as originalMessage
