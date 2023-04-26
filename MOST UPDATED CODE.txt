@@ -33,7 +33,7 @@ class Encrypt {
         for(i=0; i < originalMessage.size(); i++) {
             encryptedMessage += (originalMessage[i]-'A'+ caesarKey) % 26 + 'A';
             }
-        cout << "Encrypted text: ";
+        cout << "Encrypted text: " << encryptedMessage << endl;
         }
         
         // Decryption
@@ -41,7 +41,7 @@ class Encrypt {
         for(i=0; i<originalMessage.size(); i++){
             encryptedMessage += (originalMessage[i]-'A'-caesarKey + 26) %26 + 'A';
             }
-        cout << "Decrypted text: ";
+        cout << "Decrypted text: " << encryptedMessage << endl;
         }
     }
     
@@ -50,8 +50,9 @@ class Encrypt {
     
     
     void vigenereAlgorithm() {
-        cout << "Enter a word for the key:\n"; cin >> vigenereKey;
+        cout << "Enter a word for the key: "; cin >> vigenereKey;
         transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
+        
         //Encryption
         if (!translate){
             // Make sure key is at least as long as originalMessage
@@ -68,7 +69,7 @@ class Encrypt {
                 char enc = ((c - 'A') + (k - 'A')) % 26 + 'A';
              encryptedMessage += enc;
             }
-            cout << "Encrypted text: "; //<<encryptedMessage;
+            cout << "Encrypted text: " << encryptedMessage << endl;
         }
         
         //Decryption
@@ -86,7 +87,7 @@ class Encrypt {
                 char dec = ((c - 'A') - (k - 'A') + 26) % 26 + 'A';
                 decryptedMessage += dec;
             }
-                cout << "Decrypted text: "<<endl;
+                cout << "Decrypted text: "<< encryptedMessage << endl;
             }
             
     }
@@ -96,7 +97,7 @@ class Encrypt {
 
     // Step 1: Define the key and the input message
     cout << "Enter key: "; cin >> playfairKey;
-
+    transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
     // Step 2: Build the 5x5 matrix from the key
     char matrix[5][5];
     bool used[26] = {false};
@@ -174,7 +175,7 @@ class Encrypt {
         encryptedMessage += matrix[bx][by];
     }
 
-    cout << "Encrypted message: ";
+    cout << "Encrypted message: " << encryptedMessage << endl;
     }
     
 
@@ -233,9 +234,7 @@ class Text: private Encrypt {
         
     }
     
-    void printText() {
-        cout << encryptedMessage << endl;
-    }
+
     
 };
 
@@ -246,5 +245,5 @@ int main() {
     encryptor.setText();
     encryptor.setTranslate();
     encryptor.setChoice();
-    encryptor.printText();
+
 }
