@@ -17,6 +17,8 @@ class Encrypt {
     private:
     string originalMessage;
     int i, caesarKey;
+    string vigenereKey;
+    string playfairKey;
     
     public:
     string encryptedMessage;
