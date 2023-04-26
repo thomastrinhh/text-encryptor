@@ -50,8 +50,46 @@ class Encrypt {
     
     
     void vigenereAlgorithm() {
-        cout << "vigenereAlgorithm() successfully called." << endl;
+        cout << "Enter a word for the key:\n"; cin >> vigenereKey;
+        //Encryption
+        if (!translate){
+            // Make sure key is at least as long as originalMessage
+            while (vigenereKey.length() < originalMessage.length())
+            {
+                vigenereKey += vigenereKey;
+            }
+            // Encrypt the originalMessage using the key
+            string encryptedMessage = "";
+            for (int i = 0; i < originalMessage.length(); i++)
+            {
+                char c = originalMessage[i];
+                char k = vigenereKey[i];
+                char enc = ((c - 'A') + (k - 'A')) % 26 + 'A';
+             encryptedMessage += enc;
+            }
+            cout << "Encrypted text: "; //<<encryptedMessage;
+        }
+        
+        //Decryption
+        if (translate){
+            while (vigenereKey.length() < encryptedMessage.length())
+            {
+                vigenereKey += vigenereKey;
+            }
+            // Decrypt the encryptedMessage using the key
+            string decryptedMessage = "";
+            for (int i = 0; i < encryptedMessage.length(); i++)
+            {
+                char c = encryptedMessage[i];
+                char k = vigenereKey[i];
+                char dec = ((c - 'A') - (k - 'A') + 26) % 26 + 'A';
+                decryptedMessage += dec;
+            }
+                cout << "Decrypted text: "<<endl;
+            }
+            
     }
+    
     
     void playfairAlgorithm() {
 
