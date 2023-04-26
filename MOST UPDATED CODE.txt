@@ -80,7 +80,7 @@ class Encrypt {
 
     // define the key
     cout << "\n\n" << "Enter key: "; cin >> playfairKey;
-    transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
+    transform(playfairKey.begin(), playfairKey.end(), playfairKey.begin(), ::toupper);
     
     // build the 5x5 matrix from the key
     if(!translate) {
