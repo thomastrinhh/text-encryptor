@@ -3,15 +3,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
-TODO: 
-- Finish encryption algorithms vigenereAlgorithm() and playfairAlgorithm
-
-SIDE-TASKS (not necessary but would improve our code):
-- Account for user errors i.e. entering numbers for encrypted message, a letter for key, etc.
-- Create loop that will allow user to continue running program after encryption is finished
-*/
-
 class Encrypt {
     // Message to be encrypted will be a private member of class Encrypt
     private:
