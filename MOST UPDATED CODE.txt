@@ -17,14 +17,14 @@ class Encrypt {
 
 
     void caesarAlgorithm() {
-        cout << "Enter key: "; cin >> caesarKey;
+        cout << "\n\n" << "Enter key: "; cin >> caesarKey;
         
         // Encryption
         if (!translate) {
         for(i=0; i < originalMessage.size(); i++) {
             encryptedMessage += (originalMessage[i]-'A'+ caesarKey) % 26 + 'A';
             }
-        cout << "Encrypted text: " << encryptedMessage << endl;
+        cout << "\n" << "Encrypted message: " << encryptedMessage << endl;
         }
         
         // Decryption
@@ -32,7 +32,7 @@ class Encrypt {
         for(i=0; i<originalMessage.size(); i++){
             encryptedMessage += (originalMessage[i]-'A'-caesarKey + 26) %26 + 'A';
             }
-        cout << "Decrypted text: " << encryptedMessage << endl;
+        cout << "\n" << "Decrypted message: " << encryptedMessage << endl;
         }
     }
     
@@ -41,7 +41,7 @@ class Encrypt {
     
     
     void vigenereAlgorithm() {
-        cout << "Enter a word for the key: "; cin >> vigenereKey;
+        cout << "\n\n" << "Enter a word for the key: "; cin >> vigenereKey;
         transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
         
         //Encryption
@@ -60,7 +60,7 @@ class Encrypt {
                 char enc = ((c - 'A') + (k - 'A')) % 26 + 'A';
              encryptedMessage += enc;
             }
-            cout << "Encrypted text: " << encryptedMessage << endl;
+            cout << "\n" << "Encrypted message: " << encryptedMessage << endl;
         }
         
         //Decryption
@@ -78,7 +78,7 @@ class Encrypt {
                 char dec = ((c - 'A') - (k - 'A') + 26) % 26 + 'A';
                 decryptedMessage += dec;
             }
-                cout << "Decrypted text: "<< encryptedMessage << endl;
+                cout << "\n" << "Decrypted message: "<< encryptedMessage << endl;
             }
             
     }
@@ -87,7 +87,7 @@ class Encrypt {
     void playfairAlgorithm() {
 
     // define the key
-    cout << "Enter key: "; cin >> playfairKey;
+    cout << "\n\n" << "Enter key: "; cin >> playfairKey;
     transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
     
     // build the 5x5 matrix from the key
@@ -168,7 +168,7 @@ class Encrypt {
             encryptedMessage += matrix[bx][by];
         }
     
-        cout << "Encrypted message: " << encryptedMessage << endl;
+        cout << "\n" << "Encrypted message: " << encryptedMessage << endl;
         }
     
     
@@ -250,7 +250,7 @@ class Encrypt {
             encryptedMessage += matrix[bx][by];
         }
     
-            cout << "Decrypted text: " << encryptedMessage << endl;
+            cout << "\n" << "Decrypted message: " << encryptedMessage << endl;
     }
 
         
@@ -303,12 +303,12 @@ class Text: private Encrypt {
         // Get from user which type of encryption method
         cout << "\n" << "1. Caesar Cipher Encryption" << endl << "2. Vigenere Cipher Encryption" << endl << "3. Playfair Cipher Encryption" << endl;
         cout << "Enter which encryption method you would like to use (1/2/3): ";
-        cin >> userChoice1; cout << "\n";
+        cin >> userChoice1; 
         switch(userChoice1) {
-            case 1: caesarAlgorithm(); break;
-            case 2: vigenereAlgorithm(); break;
-            case 3: playfairAlgorithm(); break;
-            default: cout << "Invalid input." << endl; break;
+            case 1: cout << "\n" << "Encryption method selected: Caesar Encryption Algorithm."; caesarAlgorithm(); break;
+            case 2: cout << "\n" << "Encryption method selected: Vigenere Encryption Algorithm."; vigenereAlgorithm(); break;
+            case 3: cout << "\n" << "Encryption method selected: Playfair Encryption Algorithm."; playfairAlgorithm(); break;
+            default: cout << "\n" << "Invalid input." << endl; break;
         }
         
     }
