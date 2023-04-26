@@ -14,8 +14,6 @@ class Encrypt {
     string encryptedMessage;
     bool translate; 
 
-
-
     void caesarAlgorithm() {
         cout << "\n\n" << "Enter key: "; cin >> caesarKey;
         
@@ -35,10 +33,6 @@ class Encrypt {
         cout << "\n" << "Decrypted message: " << encryptedMessage << endl;
         }
     }
-    
-    
-    
-    
     
     void vigenereAlgorithm() {
         cout << "\n\n" << "Enter a word for the key: "; cin >> vigenereKey;
@@ -79,10 +73,8 @@ class Encrypt {
                 decryptedMessage += dec;
             }
                 cout << "\n" << "Decrypted message: "<< encryptedMessage << endl;
-            }
-            
+            }            
     }
-    
     
     void playfairAlgorithm() {
 
@@ -252,15 +244,7 @@ class Encrypt {
     
             cout << "\n" << "Decrypted message: " << encryptedMessage << endl;
     }
-
-        
-        
     }
-    
-
-
-    
-    
     
     // Friend class declaration to allow class Text to access private members of class Encrypt
     friend class Text;
@@ -284,8 +268,6 @@ class Text: private Encrypt {
         cout << "Text entered was: " << originalMessage << "\n\n";
     }
     
-    
-    
     void setTranslate() {
         // Get from user if they want to encrypt or decrypt
         cout << "1. Encrypt" << endl << "2. Decrypt" << endl;
@@ -297,7 +279,6 @@ class Text: private Encrypt {
             default: cout << "Invalid input." << endl; break;
             }
     }
-        
         
     void setChoice() {
         // Get from user which type of encryption method
@@ -312,9 +293,7 @@ class Text: private Encrypt {
         }
         
     }
-    
-
-    
+  
 };
 
 // Driver function
@@ -324,5 +303,4 @@ int main() {
     encryptor.setText();
     encryptor.setTranslate();
     encryptor.setChoice();
-
 }
