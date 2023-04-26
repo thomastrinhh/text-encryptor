@@ -95,87 +95,175 @@ class Encrypt {
     
     void playfairAlgorithm() {
 
-    // Step 1: Define the key and the input message
+    // define the key
     cout << "Enter key: "; cin >> playfairKey;
     transform(vigenereKey.begin(), vigenereKey.end(), vigenereKey.begin(), ::toupper);
-    // Step 2: Build the 5x5 matrix from the key
-    char matrix[5][5];
-    bool used[26] = {false};
-    int k = 0, x = 0, y = 0;
-    for (int i = 0; i < playfairKey.length(); i++) {
-        char c = playfairKey[i];
-        if (!used[c-'A']) {
-            matrix[x][y] = c;
-            used[c-'A'] = true;
-            y++;
-            if (y == 5) {
-                x++;
-                y = 0;
+    
+    // build the 5x5 matrix from the key
+    if(!translate) {
+        char matrix[5][5];
+        bool used[26] = {false};
+        int k = 0, x = 0, y = 0;
+        for (int i = 0; i < playfairKey.length(); i++) {
+            char c = playfairKey[i];
+            if (!used[c-'A']) {
+                matrix[x][y] = c;
+                used[c-'A'] = true;
+                y++;
+                if (y == 5) {
+                    x++;
+                    y = 0;
+                }
             }
         }
-    }
-    for (char c = 'A'; c <= 'Z'; c++) {
-        if (c == 'J') continue;
-        if (!used[c-'A']) {
-            matrix[x][y] = c;
-            used[c-'A'] = true;
-            y++;
-            if (y == 5) {
-                x++;
-                y = 0;
+        for (char c = 'A'; c <= 'Z'; c++) {
+            if (c == 'J') continue;
+            if (!used[c-'A']) {
+                matrix[x][y] = c;
+                used[c-'A'] = true;
+                y++;
+                if (y == 5) {
+                    x++;
+                    y = 0;
+                }
             }
         }
-    }
-
-    // Step 3: Remove spaces and duplicate letters from the input message
-    string plainText = "";
-    for (int i = 0; i < originalMessage.length(); i++) {
-        char c = originalMessage[i];
-        if (c == ' ') continue;
-        if (c == 'J') c = 'I';
-        if (i+1 < originalMessage.length() && originalMessage[i+1] == c) {
+    
+        // remove spaces and duplicate letters from the input message
+        string plainText = "";
+        for (int i = 0; i < originalMessage.length(); i++) {
+            char c = originalMessage[i];
+            if (c == ' ') continue;
+            if (c == 'J') c = 'I';
+            if (i+1 < originalMessage.length() && originalMessage[i+1] == c) {
+                plainText += c;
+                plainText += 'X';
+                continue;
+            }
             plainText += c;
-            plainText += 'X';
-            continue;
         }
-        plainText += c;
-    }
-    if (plainText.length() % 2 == 1) {
-        plainText += 'X';
-    }
-
-    // Step 4: Apply the Playfair cipher
-    string encryptedMessage = "";
-    for (int i = 0; i < plainText.length(); i += 2) {
-        char a = plainText[i];
-        char b = plainText[i+1];
-        int ax, ay, bx, by;
-        for (int x = 0; x < 5; x++) {
-            for (int y = 0; y < 5; y++) {
-                if (matrix[x][y] == a) {
-                    ax = x;
-                    ay = y;
+        if (plainText.length() % 2 == 1) {
+            plainText += 'X';
+        }
+    
+        // Step 4: Apply the Playfair cipher
+        string encryptedMessage = "";
+        for (int i = 0; i < plainText.length(); i += 2) {
+            char a = plainText[i];
+            char b = plainText[i+1];
+            int ax, ay, bx, by;
+            for (int x = 0; x < 5; x++) {
+                for (int y = 0; y < 5; y++) {
+                    if (matrix[x][y] == a) {
+                        ax = x;
+                        ay = y;
+                    }
+                    if (matrix[x][y] == b) {
+                        bx = x;
+                        by = y;
+                    }
                 }
-                if (matrix[x][y] == b) {
-                    bx = x;
-                    by = y;
+            }
+            if (ax == bx) {
+                ay = (ay + 1) % 5;
+                by = (by + 1) % 5;
+            } else if (ay == by) {
+                ax = (ax + 1) % 5;
+                bx = (bx + 1) % 5;
+            } else {
+                swap(ay, by);
+            }
+            encryptedMessage += matrix[ax][ay];
+            encryptedMessage += matrix[bx][by];
+        }
+    
+        cout << "Encrypted message: " << encryptedMessage << endl;
+        }
+    
+    
+    if (translate) {
+        // Step 2: Build the 5x5 matrix from the key
+        char matrix[5][5];
+        bool used[26] = {false};
+        int k = 0, x = 0, y = 0;
+        for (int i = 0; i < playfairKey.length(); i++) {
+            char c = playfairKey[i];
+            if (!used[c-'A']) {
+                matrix[x][y] = c;
+                used[c-'A'] = true;
+                y++;
+                if (y == 5) {
+                    x++;
+                    y = 0;
                 }
             }
         }
-        if (ax == bx) {
-            ay = (ay + 1) % 5;
-            by = (by + 1) % 5;
-        } else if (ay == by) {
-            ax = (ax + 1) % 5;
-            bx = (bx + 1) % 5;
-        } else {
-            swap(ay, by);
+        for (char c = 'A'; c <= 'Z'; c++) {
+            if (c == 'J') continue;
+            if (!used[c-'A']) {
+                matrix[x][y] = c;
+                used[c-'A'] = true;
+                y++;
+                if (y == 5) {
+                    x++;
+                    y = 0;
+                }
+            }
         }
-        encryptedMessage += matrix[ax][ay];
-        encryptedMessage += matrix[bx][by];
+    
+        // Step 3: Remove spaces and duplicate letters from the input message
+        string plainText = "";
+        for (int i = 0; i < originalMessage.length(); i++) {
+            char c = originalMessage[i];
+            if (c == ' ') continue;
+            if (c == 'J') c = 'I';
+            if (i+1 < originalMessage.length() && originalMessage[i+1] == c) {
+                plainText += c;
+                plainText += 'X';
+                continue;
+            }
+            plainText += c;
+        }
+        if (plainText.length() % 2 == 1) {
+            plainText += 'X';
+        }
+    
+        // Step 4: Apply the Playfair cipher
+        string encryptedMessage = "";
+        for (int i = 0; i < plainText.length(); i += 2) {
+            char a = plainText[i];
+            char b = plainText[i+1];
+            int ax, ay, bx, by;
+            for (int x = 0; x < 5; x++) {
+                for (int y = 0; y < 5; y++) {
+                    if (matrix[x][y] == a) {
+                        ax = x;
+                        ay = y;
+                    }
+                    if (matrix[x][y] == b) {
+                        bx = x;
+                        by = y;
+                    }
+                }
+            }
+            if (ax == bx) {
+                ay = (ay + 1) % 5;
+                by = (by + 1) % 5;
+            } else if (ay == by) {
+                ax = (ax + 1) % 5;
+                bx = (bx + 1) % 5;
+            } else {
+                swap(ay, by);
+            }
+            encryptedMessage += matrix[ax][ay];
+            encryptedMessage += matrix[bx][by];
+        }
+    
+            cout << "Decrypted text: " << encryptedMessage << endl;
     }
 
-    cout << "Encrypted message: " << encryptedMessage << endl;
+        
+        
     }
     
 
