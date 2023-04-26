@@ -16,7 +16,7 @@ class Encrypt {
     // Message to be encrypted will be a private member of class Encrypt
     private:
     string originalMessage;
-    int key, i;
+    int i, caesarKey;
     
     public:
     string encryptedMessage;
@@ -24,12 +24,12 @@ class Encrypt {
 
 
     void caesarAlgorithm() {
-        cout << "Enter key: "; cin >> key;
+        cout << "Enter key: "; cin >> caesarKey;
         
         // Encryption
         if (!translate) {
         for(i=0; i < originalMessage.size(); i++) {
-            encryptedMessage += (originalMessage[i]-'A'+ key) % 26 + 'A';
+            encryptedMessage += (originalMessage[i]-'A'+ caesarKey) % 26 + 'A';
             }
         cout << "Encrypted text: ";
         }
@@ -37,14 +37,13 @@ class Encrypt {
         // Decryption
         if (translate) {
         for(i=0; i<originalMessage.size(); i++){
-            encryptedMessage += (originalMessage[i]-'A'-key + 26) %26 + 'A';
+            encryptedMessage += (originalMessage[i]-'A'-caesarKey + 26) %26 + 'A';
             }
         cout << "Decrypted text: ";
         }
     }
     
     void vigenereAlgorithm() {
-        // Keyan's code
         cout << "vigenereAlgorithm() successfully called." << endl;
     }
     
