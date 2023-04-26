@@ -1,22 +1,34 @@
-int main() {
-    string message, key;
-    cout << "Enter message to encrypt: ";
-    getline(cin, message);
-    cout << "Enter encryption key: ";
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+    string plaintext, key;
+    cout << "Enter plaintext: ";
+    getline(cin, plaintext);
+
+    cout << "Enter key: ";
     getline(cin, key);
 
-    string encryptedMessage = "";
-    int keyIndex = 0;
-    for (int i = 0; i < message.length(); i++) {
-        char c = message[i];
-        if (isalpha(c)) {
-            int shift = key[keyIndex] - 'A';
-            c = (c - shift + 26) % 26 + 'A';
-            keyIndex = (keyIndex + 1) % key.length();
-        }
-        encryptedMessage += c;
+    // Make sure key is at least as long as plaintext
+    while (key.length() < plaintext.length())
+    {
+        key += key;
     }
 
-    cout << "Encrypted message: " << encryptedMessage << endl;
+    // Encrypt the plaintext using the key
+    string ciphertext = "";
+    for (int i = 0; i < plaintext.length(); i++)
+    {
+        char c = plaintext[i];
+        char k = key[i];
+        char enc = ((c - 'A') + (k - 'A')) % 26 + 'A';
+        ciphertext += enc;
+    }
+
+    cout << "Ciphertext: " << ciphertext << endl;
+
     return 0;
 }
